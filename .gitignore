@@ -1,0 +1,13 @@
+# Ignore l'environnement virtuel Python
+myenv/
+__pycache__/
+*.pyc
+
+
+# Ignore fichiers système
+.DS_Store
+Thumbs.db
+
+# Ignore VSCode settings (facultatif)
+.vscode/
+
