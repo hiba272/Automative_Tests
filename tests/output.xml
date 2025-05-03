@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.11.0 on win32)" generated="2025-05-02T18:34:27.186730" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests system" source="C:\Users\hibac\Desktop\automative_tests\tests\Tests_system.robot">
+<test id="s1-t1" name="Test Hotspot Activation / Désactivation" line="7">
+<kw name="Run Test Hotspot Behavior" owner="Tests_system">
+<msg time="2025-05-02T18:36:00.311795" level="INFO">État initial du hotspot : Désactivé
+Hotspot inactif ➔ Activation...
+Capture prise : hotspot_activated.png
+Hotspot bien activé : SSID détecté et Wi-Fi non détecté.
+Désactivation du Hotspot...
+Capture prise : hotspot_deactivated_2.png
+Hotspot bien désactivé : Wi-Fi détecté et état 'OFF' confirmé.</msg>
+<status status="PASS" start="2025-05-02T18:35:05.543246" elapsed="54.768549"/>
+</kw>
+<status status="PASS" start="2025-05-02T18:35:05.540811" elapsed="54.771998"/>
+</test>
+<test id="s1-t2" name="Test Mobile Network" line="10">
+<kw name="Run Test Mobile Network Behavior" owner="Tests_system">
+<msg time="2025-05-02T18:36:13.423449" level="INFO">Vérification de l'état initial du Mobile Network...
+Capture Mobile Network ➔ mobile_state_initial.png
+Analyse OCR sur : mobile_state_initial.png
+OCR détecté : t-mobile-us ➤ Mobile Network est bien activé.
+Capture Mobile Network ➔ mobile_state_initial.png
+Analyse OCR sur : mobile_state_initial.png
+OCR détecté : t-mobile-us ➤ Mobile Network est bien activé.
+État 'ON' confirmé par OCR.
+Désactivation du Mobile Network...
+Capture Mobile Network ➔ mobile_state_off.png
+Analyse OCR sur : mobile_state_off.png
+OCR détecté : off ➤ Mobile Network est bien désactivé.
+État 'OFF' confirmé par OCR.
+Réactivation du Mobile Network...
+Capture Mobile Network ➔ mobile_state_on_final.png
+Analyse OCR sur : mobile_state_on_final.png
+OCR détecté : t-mobile-us ➤ Mobile Network est bien activé.
+État 'ON' confirmé par OCR.</msg>
+<status status="PASS" start="2025-05-02T18:36:00.316037" elapsed="13.107412"/>
+</kw>
+<status status="PASS" start="2025-05-02T18:36:00.314321" elapsed="13.109128"/>
+</test>
+<test id="s1-t3" name="Test Wi-Fi connectivity" line="13">
+<kw name="Run Test wifi connectivity" owner="Tests_system">
+<msg time="2025-05-02T18:36:35.834729" level="INFO">Étape 1 : Réinitialisation ➤ Désactivation Wi-Fi + Données mobiles...
+ Étape 2 : Activation du Wi-Fi...
+
+ Étape 3 : Vérification `dumpsys wifi | grep curState`...
+📋 États détectés :
+curState=EnabledState
+curState=ConnectModeState
+curState=L3ConnectedState
+curState=CompletedState
+curState=ConnectModeState
+curState=L3ConnectedState
+curState=&lt;QUIT&gt;
+curState=ConnectModeState
+curState=L3ConnectedState
+curState=&lt;QUIT&gt;
+curState=ConnectModeState
+curState=L3ConnectedState
+curState=&lt;QUIT&gt;
+curState=&lt;QUIT&gt;
+curState=&lt;QUIT&gt;
+curState=&lt;QUIT&gt;
+L3ConnectedState détecté ➤ Wi-Fi connecté.
+
+ Étape 4 : Vérification IP route...
+ IP Routes :
+10.0.2.0/24 dev wlan0 proto kernel scope link src 10.0.2.24
+ wlan0 ou IP 10.0.x.x détecté ➤ Connexion réseau active.
+
+ Étape 5 : Test Internet ➤ ping vers 8.8.8.8
+ Résultat ping :
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 0 received, 100% packet loss, time 2050ms
+ Le Wi-Fi est bien connecté à Internet.
+
+ TEST WI-FI COMPLET</msg>
+<status status="PASS" start="2025-05-02T18:36:13.424962" elapsed="22.409767"/>
+</kw>
+<status status="PASS" start="2025-05-02T18:36:13.424962" elapsed="22.410898"/>
+</test>
+<test id="s1-t4" name="Test Wi-Fi disconnectivity" line="16">
+<kw name="Run Test wifi disconnectivity" owner="Tests_system">
+<msg time="2025-05-02T18:36:42.829448" level="INFO">Étape 1 : Simuler la déconnexion depuis l'interface
+
+Étape 2 : Vérification `dumpsys wifi | grep curState`...
+📋 États détectés :
+curState=EnabledState
+curState=ConnectModeState
+curState=DisconnectedState
+curState=DisconnectedState
+Wi-Fi déconnecté ➤ DisconnectedState détecté à la 3ème ligne.
+
+Étape 3 : Vérification IP route...
+IP Routes :
+aucune route
+Aucune route IP ➤ Wi-Fi semble bien déconnecté.
+
+ Étape 4 : Ping ➤ 8.8.8.8 pour test réseau
+Résultat ping :
+connect: Network is unreachable
+Ping échoué ➤ Aucune connexion Internet ➤ Wi-Fi bien déconnecté.</msg>
+<status status="PASS" start="2025-05-02T18:36:35.838401" elapsed="6.991047"/>
+</kw>
+<status status="PASS" start="2025-05-02T18:36:35.837374" elapsed="6.993596"/>
+</test>
+<test id="s1-t5" name="Test forget Network" line="19">
+<kw name="Run Test forget network" owner="Tests_system">
+<msg time="2025-05-02T18:36:46.787693" level="INFO">Étape 1 : Accès à AndroidWifi via Appium
+
+Étape 2 : Récupération de la liste des réseaux Wi-Fi
+📋 Liste des réseaux :
+Network Id      SSID                         Security type
+3            AndroidWifi                      open
+3            AndroidWifi                      owe^
+ID du réseau AndroidWifi détecté : 3
+
+Étape 3 : Suppression du réseau ID=3
+Résultat :
+Forget successful
+Réseau AndroidWifi oublié avec succès.</msg>
+<status status="PASS" start="2025-05-02T18:36:42.832990" elapsed="3.954703"/>
+</kw>
+<status status="PASS" start="2025-05-02T18:36:42.832990" elapsed="3.956768"/>
+</test>
+<test id="s1-t6" name="Test loopback latency" line="22">
+<kw name="Run Test loopback latency " owner="Tests_system">
+<msg time="2025-05-02T18:36:50.083531" level="INFO">Test de latence loopback (127.0.0.1)...
+
+Résultat du ping loopback :
+PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.069 ms
+64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.384 ms
+64 bytes from 127.0.0.1: icmp_seq=3 ttl=64 time=0.183 ms
+64 bytes from 127.0.0.1: icmp_seq=4 ttl=64 time=0.116 ms
+
+--- 127.0.0.1 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3065ms
+rtt min/avg/max/mdev = 0.069/0.188/0.384/0.120 ms
+
+Latence moyenne loopback détectée : 0.188 ms
+Loopback fonctionnel avec latence ultra-faible (&lt; 5 ms)
+
+Test loopback réussi : pile réseau bien  fonctionnelle dans l'émulateur.</msg>
+<status status="PASS" start="2025-05-02T18:36:46.793283" elapsed="3.290248"/>
+</kw>
+<status status="PASS" start="2025-05-02T18:36:46.791776" elapsed="3.292882"/>
+</test>
+<test id="s1-t7" name="Test wifi latency" line="25">
+<kw name="Run Test wifi latency " owner="Tests_system">
+<msg time="2025-05-02T18:37:00.747506" level="INFO">Résultat du ping :
+PING 10.0.2.2 (10.0.2.2) 56(84) bytes of data.
+64 bytes from 10.0.2.2: icmp_seq=1 ttl=255 time=2.83 ms
+64 bytes from 10.0.2.2: icmp_seq=2 ttl=255 time=3.63 ms
+64 bytes from 10.0.2.2: icmp_seq=3 ttl=255 time=3.20 ms
+64 bytes from 10.0.2.2: icmp_seq=4 ttl=255 time=2.55 ms
+
+--- 10.0.2.2 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3010ms
+rtt min/avg/max/mdev = 2.555/3.058/3.634/0.406 ms
+
+Latence moyenne détectée : 3.058 ms
+Latence Wi-Fi (locale) dans la plage acceptable (&lt; 50 ms)</msg>
+<status status="PASS" start="2025-05-02T18:36:50.086679" elapsed="10.660827"/>
+</kw>
+<status status="PASS" start="2025-05-02T18:36:50.086679" elapsed="10.661852"/>
+</test>
+<test id="s1-t8" name="Test mobile network latency" line="28">
+<kw name="Run Test mobile network latency " owner="Tests_system">
+<msg time="2025-05-02T18:37:09.949414" level="INFO">Test de latence network mobile
+
+📨 Résultat du ping :
+PING 10.0.2.2 (10.0.2.2) 56(84) bytes of data.
+64 bytes from 10.0.2.2: icmp_seq=1 ttl=255 time=0.294 ms
+64 bytes from 10.0.2.2: icmp_seq=2 ttl=255 time=0.984 ms
+64 bytes from 10.0.2.2: icmp_seq=3 ttl=255 time=1.14 ms
+64 bytes from 10.0.2.2: icmp_seq=4 ttl=255 time=1.01 ms
+
+--- 10.0.2.2 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3027ms
+rtt min/avg/max/mdev = 0.294/0.861/1.147/0.332 ms
+
+Latence moyenne détectée : 0.861 ms</msg>
+<msg time="2025-05-02T18:37:09.949414" level="FAIL">Latence mobile hors plage : 0.861 ms</msg>
+<status status="FAIL" start="2025-05-02T18:37:00.751501" elapsed="9.245535">Latence mobile hors plage : 0.861 ms</status>
+</kw>
+<status status="FAIL" start="2025-05-02T18:37:00.749523" elapsed="9.248585">Latence mobile hors plage : 0.861 ms</status>
+</test>
+<status status="FAIL" start="2025-05-02T18:34:27.190733" elapsed="162.808404"/>
+</suite>
+<statistics>
+<total>
+<stat pass="7" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Tests system" id="s1" pass="7" fail="1" skip="0">Tests system</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

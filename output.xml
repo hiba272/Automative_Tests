@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.11.0 on win32)" generated="2025-05-03T21:54:15.292370" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests system" source="c:\Users\hibac\Desktop\automative_tests\tests\Tests_system.robot">
+<test id="s1-t1" name="Test Micro Output" line="49">
+<kw name="Run Test micro Output" owner="Tests_system">
+<msg time="2025-05-03T21:55:25.409950" level="INFO">Capture AVANT Stop...
+
+Envoi STOP...
+
+Capture APRÈS Stop...
+
+Analyse...
+
+✨ RAPPORT AUDIO
+=====================
+
+🔊 AVANT STOP :
+---------------------
+- Niveau RMS : 2166.11
+- Niveau sonore (dB) : 66.71 dB
+- Durée avec son (&gt; -40 dB) : 10.00 secondes
+- Nombre de pics forts (&gt; 20 dB) : 52
+
+✅ Analyse :
+Un signal audio important a été détecté avant l'envoi de la commande STOP. 
+Le niveau RMS élevé (2166.11) et le volume sonore moyen (66.71 dB) indiquent clairement une activité sonore significative. 
+La totalité des 10 secondes contient du son audible, avec 52 pics forts dépassant le seuil critique de 20 dB.
+👉 Ces indicateurs confirment la lecture correcte de la sonnerie dans l’émulateur avant le STOP.
+
+🔇 APRÈS STOP :
+---------------------
+- Niveau RMS : 4.34
+- Niveau sonore (dB) : 12.76 dB
+- Durée avec son (&gt; -40 dB) : 10.00 secondes
+- Nombre de pics forts (&gt; 20 dB) : 0
+
+🟡 Analyse :
+Après l’envoi de la commande STOP, bien que le seuil de bruit soit dépassé sur toute la durée (10s),
+le niveau RMS très bas (4.34) et le volume sonore moyen faible (12.76 dB) indiquent un bruit de fond minimal.
+Le faible nombre de pics (0) suggère l'absence de véritable activité sonore.
+👉 Il n’y a pas de sonnerie jouée après le STOP — seulement un résidu ou bruit technique du micro.
+
+🎯 CONCLUSION GLOBALE :
+------------------------
+✅ Le son a bien été détecté dans l’émulateur **avant** la commande STOP.
+✅ Aucun son significatif n'a été détecté **après** — la commande STOP fonctionne correctement.</msg>
+<status status="PASS" start="2025-05-03T21:54:35.113537" elapsed="50.298944"/>
+</kw>
+<status status="PASS" start="2025-05-03T21:54:35.112534" elapsed="50.300946"/>
+</test>
+<status status="PASS" start="2025-05-03T21:54:15.298876" elapsed="70.115830"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Tests system" id="s1" pass="1" fail="0" skip="0">Tests system</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
