@@ -61,26 +61,30 @@ class AppiumDriverFactory:
             return "phone"
 
     def setup_driver(self, emulator_uid, emulator_type, app_package=None, app_activity=None):
+        options = AppiumOptions() 
         options = AppiumOptions()
         options.set_capability("platformName", "Android")
         options.set_capability("deviceName", emulator_uid)
         options.set_capability("automationName", "UiAutomator2")
         options.set_capability("adbExecTimeout", 60000)
+        options.remote_adb_host = "host.docker.internal"
         if app_package and app_activity:
-            options.set_capability("appPackage", app_package)
-            options.set_capability("appActivity", app_activity)
+          options.set_capability("appPackage", app_package)
+          options.set_capability("appActivity", app_activity)
 
         if emulator_type == 'automotive':
-            options.set_capability("appium:deviceType", "automotive")
+          options.set_capability("appium:deviceType", "automotive")
 
         try:
-            self.wait_for_shell_ready(emulator_uid) 
-            driver = Remote("http://127.0.0.1:4723", options=options)
-            time.sleep(5)
-            return driver
+         self.wait_for_shell_ready(emulator_uid) 
+         driver = Remote("http://127.0.0.1:4723", options=options)
+         time.sleep(5)
+         return driver
         except WebDriverException as e:
-            raise RuntimeError(f"Échec de la création du driver pour {emulator_uid} : {e}")
-
+         raise RuntimeError(f"Échec de la création du driver pour {emulator_uid} : {e}")
+        
+    
+   
     def initialize_drivers(self, default_app_package=None, default_app_activity=None):
         if self.drivers:
             print("Drivers déjà initialisés, réutilisation.")

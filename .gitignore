@@ -1,13 +1,32 @@
-# Ignore l'environnement virtuel Python
-myenv/
+# === Python ===
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
 *.pyc
 
+# === Environnement virtuel local ===
+myenv/
+env/
+venv/
 
-# Ignore fichiers système
+# === Fichiers temporaires ===
+*.log
+*.tmp
+*.bak
+*.swp
+
+# === IDEs ===
+.vscode/
+.idea/
+*.iml
+
+# === Fichiers de tests/output ===
+*.png
+*.wav
+rapport_audio.txt
+output/
+
+# === OS ===
 .DS_Store
 Thumbs.db
-
-# Ignore VSCode settings (facultatif)
-.vscode/
-

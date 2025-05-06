@@ -60,3 +60,6 @@ def stop_avd_by_type(target_type):
 
     except Exception as e:
         print(f"Erreur lors de la fermeture de l’AVD {target_type.upper()} : {e}")
+
+
+start_avd_by_type("phone")

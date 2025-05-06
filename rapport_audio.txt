@@ -4,28 +4,28 @@
 
 🔊 AVANT STOP :
 ---------------------
-- Niveau RMS : 2166.11
-- Niveau sonore (dB) : 66.71 dB
+- Niveau RMS : 5981.79
+- Niveau sonore (dB) : 75.54 dB
 - Durée avec son (> -40 dB) : 10.00 secondes
-- Nombre de pics forts (> 20 dB) : 52
+- Nombre de pics forts (> 20 dB) : 100
 
 ✅ Analyse :
 Un signal audio important a été détecté avant l'envoi de la commande STOP. 
-Le niveau RMS élevé (2166.11) et le volume sonore moyen (66.71 dB) indiquent clairement une activité sonore significative. 
-La totalité des 10 secondes contient du son audible, avec 52 pics forts dépassant le seuil critique de 20 dB.
+Le niveau RMS élevé (5981.79) et le volume sonore moyen (75.54 dB) indiquent clairement une activité sonore significative. 
+La totalité des 10 secondes contient du son audible, avec 100 pics forts dépassant le seuil critique de 20 dB.
 👉 Ces indicateurs confirment la lecture correcte de la sonnerie dans l’émulateur avant le STOP.
 
 🔇 APRÈS STOP :
 ---------------------
-- Niveau RMS : 4.34
-- Niveau sonore (dB) : 12.76 dB
+- Niveau RMS : 25.37
+- Niveau sonore (dB) : 28.09 dB
 - Durée avec son (> -40 dB) : 10.00 secondes
-- Nombre de pics forts (> 20 dB) : 0
+- Nombre de pics forts (> 20 dB) : 91
 
 🟡 Analyse :
 Après l’envoi de la commande STOP, bien que le seuil de bruit soit dépassé sur toute la durée (10s),
-le niveau RMS très bas (4.34) et le volume sonore moyen faible (12.76 dB) indiquent un bruit de fond minimal.
-Le faible nombre de pics (0) suggère l'absence de véritable activité sonore.
+le niveau RMS très bas (25.37) et le volume sonore moyen faible (28.09 dB) indiquent un bruit de fond minimal.
+Le faible nombre de pics (91) suggère l'absence de véritable activité sonore.
 👉 Il n’y a pas de sonnerie jouée après le STOP — seulement un résidu ou bruit technique du micro.
 
 🎯 CONCLUSION GLOBALE :

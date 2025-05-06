@@ -1,205 +1,283 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.2.2 (Python 3.11.0 on win32)" generated="2025-05-02T18:34:27.186730" rpa="false" schemaversion="5">
+<robot generator="Robot 7.2.2 (Python 3.11.0 on win32)" generated="2025-05-06T08:54:48.612290" rpa="false" schemaversion="5">
 <suite id="s1" name="Tests system" source="C:\Users\hibac\Desktop\automative_tests\tests\Tests_system.robot">
-<test id="s1-t1" name="Test Hotspot Activation / Désactivation" line="7">
-<kw name="Run Test Hotspot Behavior" owner="Tests_system">
-<msg time="2025-05-02T18:36:00.311795" level="INFO">État initial du hotspot : Désactivé
-Hotspot inactif ➔ Activation...
-Capture prise : hotspot_activated.png
-Hotspot bien activé : SSID détecté et Wi-Fi non détecté.
-Désactivation du Hotspot...
-Capture prise : hotspot_deactivated_2.png
-Hotspot bien désactivé : Wi-Fi détecté et état 'OFF' confirmé.</msg>
-<status status="PASS" start="2025-05-02T18:35:05.543246" elapsed="54.768549"/>
+<test id="s1-t1" name="Test bluetooth toggle sync" line="7">
+<kw name="Run Test bluetooth toggle sync">
+<msg time="2025-05-06T08:55:09.762031" level="FAIL">No keyword with name 'Run Test bluetooth toggle sync' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.762031" elapsed="0.000000">No keyword with name 'Run Test bluetooth toggle sync' found.</status>
 </kw>
-<status status="PASS" start="2025-05-02T18:35:05.540811" elapsed="54.771998"/>
+<status status="FAIL" start="2025-05-06T08:55:09.757511" elapsed="0.004520">No keyword with name 'Run Test bluetooth toggle sync' found.</status>
 </test>
-<test id="s1-t2" name="Test Mobile Network" line="10">
-<kw name="Run Test Mobile Network Behavior" owner="Tests_system">
-<msg time="2025-05-02T18:36:13.423449" level="INFO">Vérification de l'état initial du Mobile Network...
-Capture Mobile Network ➔ mobile_state_initial.png
-Analyse OCR sur : mobile_state_initial.png
-OCR détecté : t-mobile-us ➤ Mobile Network est bien activé.
-Capture Mobile Network ➔ mobile_state_initial.png
-Analyse OCR sur : mobile_state_initial.png
-OCR détecté : t-mobile-us ➤ Mobile Network est bien activé.
-État 'ON' confirmé par OCR.
-Désactivation du Mobile Network...
-Capture Mobile Network ➔ mobile_state_off.png
-Analyse OCR sur : mobile_state_off.png
-OCR détecté : off ➤ Mobile Network est bien désactivé.
-État 'OFF' confirmé par OCR.
-Réactivation du Mobile Network...
-Capture Mobile Network ➔ mobile_state_on_final.png
-Analyse OCR sur : mobile_state_on_final.png
-OCR détecté : t-mobile-us ➤ Mobile Network est bien activé.
-État 'ON' confirmé par OCR.</msg>
-<status status="PASS" start="2025-05-02T18:36:00.316037" elapsed="13.107412"/>
+<test id="s1-t2" name="Test pairing bluetooth" line="9">
+<kw name="Run Test pairing bluetooth">
+<msg time="2025-05-06T08:55:09.765549" level="FAIL">No keyword with name 'Run Test pairing bluetooth' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.765549" elapsed="0.001007">No keyword with name 'Run Test pairing bluetooth' found.</status>
 </kw>
-<status status="PASS" start="2025-05-02T18:36:00.314321" elapsed="13.109128"/>
+<status status="FAIL" start="2025-05-06T08:55:09.763029" elapsed="0.004531">No keyword with name 'Run Test pairing bluetooth' found.</status>
 </test>
-<test id="s1-t3" name="Test Wi-Fi connectivity" line="13">
-<kw name="Run Test wifi connectivity" owner="Tests_system">
-<msg time="2025-05-02T18:36:35.834729" level="INFO">Étape 1 : Réinitialisation ➤ Désactivation Wi-Fi + Données mobiles...
- Étape 2 : Activation du Wi-Fi...
-
- Étape 3 : Vérification `dumpsys wifi | grep curState`...
-📋 États détectés :
-curState=EnabledState
-curState=ConnectModeState
-curState=L3ConnectedState
-curState=CompletedState
-curState=ConnectModeState
-curState=L3ConnectedState
-curState=&lt;QUIT&gt;
-curState=ConnectModeState
-curState=L3ConnectedState
-curState=&lt;QUIT&gt;
-curState=ConnectModeState
-curState=L3ConnectedState
-curState=&lt;QUIT&gt;
-curState=&lt;QUIT&gt;
-curState=&lt;QUIT&gt;
-curState=&lt;QUIT&gt;
-L3ConnectedState détecté ➤ Wi-Fi connecté.
-
- Étape 4 : Vérification IP route...
- IP Routes :
-10.0.2.0/24 dev wlan0 proto kernel scope link src 10.0.2.24
- wlan0 ou IP 10.0.x.x détecté ➤ Connexion réseau active.
-
- Étape 5 : Test Internet ➤ ping vers 8.8.8.8
- Résultat ping :
-PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
-
---- 8.8.8.8 ping statistics ---
-3 packets transmitted, 0 received, 100% packet loss, time 2050ms
- Le Wi-Fi est bien connecté à Internet.
-
- TEST WI-FI COMPLET</msg>
-<status status="PASS" start="2025-05-02T18:36:13.424962" elapsed="22.409767"/>
+<test id="s1-t3" name="Test Hotspot Activation / Désactivation" line="11">
+<kw name="Run Test Hotspot Behavior">
+<msg time="2025-05-06T08:55:09.773088" level="FAIL">No keyword with name 'Run Test Hotspot Behavior' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.773088" elapsed="0.000000">No keyword with name 'Run Test Hotspot Behavior' found.</status>
 </kw>
-<status status="PASS" start="2025-05-02T18:36:13.424962" elapsed="22.410898"/>
+<status status="FAIL" start="2025-05-06T08:55:09.768567" elapsed="0.006028">No keyword with name 'Run Test Hotspot Behavior' found.</status>
 </test>
-<test id="s1-t4" name="Test Wi-Fi disconnectivity" line="16">
-<kw name="Run Test wifi disconnectivity" owner="Tests_system">
-<msg time="2025-05-02T18:36:42.829448" level="INFO">Étape 1 : Simuler la déconnexion depuis l'interface
-
-Étape 2 : Vérification `dumpsys wifi | grep curState`...
-📋 États détectés :
-curState=EnabledState
-curState=ConnectModeState
-curState=DisconnectedState
-curState=DisconnectedState
-Wi-Fi déconnecté ➤ DisconnectedState détecté à la 3ème ligne.
-
-Étape 3 : Vérification IP route...
-IP Routes :
-aucune route
-Aucune route IP ➤ Wi-Fi semble bien déconnecté.
-
- Étape 4 : Ping ➤ 8.8.8.8 pour test réseau
-Résultat ping :
-connect: Network is unreachable
-Ping échoué ➤ Aucune connexion Internet ➤ Wi-Fi bien déconnecté.</msg>
-<status status="PASS" start="2025-05-02T18:36:35.838401" elapsed="6.991047"/>
+<test id="s1-t4" name="Test Mobile Network" line="14">
+<kw name="Run Test Mobile Network Behavior">
+<msg time="2025-05-06T08:55:09.780130" level="FAIL">No keyword with name 'Run Test Mobile Network Behavior' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.780130" elapsed="0.000000">No keyword with name 'Run Test Mobile Network Behavior' found.</status>
 </kw>
-<status status="PASS" start="2025-05-02T18:36:35.837374" elapsed="6.993596"/>
+<status status="FAIL" start="2025-05-06T08:55:09.777610" elapsed="0.003520">No keyword with name 'Run Test Mobile Network Behavior' found.</status>
 </test>
-<test id="s1-t5" name="Test forget Network" line="19">
-<kw name="Run Test forget network" owner="Tests_system">
-<msg time="2025-05-02T18:36:46.787693" level="INFO">Étape 1 : Accès à AndroidWifi via Appium
-
-Étape 2 : Récupération de la liste des réseaux Wi-Fi
-📋 Liste des réseaux :
-Network Id      SSID                         Security type
-3            AndroidWifi                      open
-3            AndroidWifi                      owe^
-ID du réseau AndroidWifi détecté : 3
-
-Étape 3 : Suppression du réseau ID=3
-Résultat :
-Forget successful
-Réseau AndroidWifi oublié avec succès.</msg>
-<status status="PASS" start="2025-05-02T18:36:42.832990" elapsed="3.954703"/>
+<test id="s1-t5" name="Test Wi-Fi connectivity" line="17">
+<kw name="Run Test wifi connectivity">
+<msg time="2025-05-06T08:55:09.784641" level="FAIL">No keyword with name 'Run Test wifi connectivity' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.783131" elapsed="0.001510">No keyword with name 'Run Test wifi connectivity' found.</status>
 </kw>
-<status status="PASS" start="2025-05-02T18:36:42.832990" elapsed="3.956768"/>
+<status status="FAIL" start="2025-05-06T08:55:09.782131" elapsed="0.002510">No keyword with name 'Run Test wifi connectivity' found.</status>
 </test>
-<test id="s1-t6" name="Test loopback latency" line="22">
-<kw name="Run Test loopback latency " owner="Tests_system">
-<msg time="2025-05-02T18:36:50.083531" level="INFO">Test de latence loopback (127.0.0.1)...
-
-Résultat du ping loopback :
-PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
-64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.069 ms
-64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.384 ms
-64 bytes from 127.0.0.1: icmp_seq=3 ttl=64 time=0.183 ms
-64 bytes from 127.0.0.1: icmp_seq=4 ttl=64 time=0.116 ms
-
---- 127.0.0.1 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3065ms
-rtt min/avg/max/mdev = 0.069/0.188/0.384/0.120 ms
-
-Latence moyenne loopback détectée : 0.188 ms
-Loopback fonctionnel avec latence ultra-faible (&lt; 5 ms)
-
-Test loopback réussi : pile réseau bien  fonctionnelle dans l'émulateur.</msg>
-<status status="PASS" start="2025-05-02T18:36:46.793283" elapsed="3.290248"/>
+<test id="s1-t6" name="Test Wi-Fi disconnectivity" line="20">
+<kw name="Run Test wifi disconnectivity">
+<msg time="2025-05-06T08:55:09.788168" level="FAIL">No keyword with name 'Run Test wifi disconnectivity' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.788168" elapsed="0.000000">No keyword with name 'Run Test wifi disconnectivity' found.</status>
 </kw>
-<status status="PASS" start="2025-05-02T18:36:46.791776" elapsed="3.292882"/>
+<status status="FAIL" start="2025-05-06T08:55:09.785646" elapsed="0.002522">No keyword with name 'Run Test wifi disconnectivity' found.</status>
 </test>
-<test id="s1-t7" name="Test wifi latency" line="25">
-<kw name="Run Test wifi latency " owner="Tests_system">
-<msg time="2025-05-02T18:37:00.747506" level="INFO">Résultat du ping :
-PING 10.0.2.2 (10.0.2.2) 56(84) bytes of data.
-64 bytes from 10.0.2.2: icmp_seq=1 ttl=255 time=2.83 ms
-64 bytes from 10.0.2.2: icmp_seq=2 ttl=255 time=3.63 ms
-64 bytes from 10.0.2.2: icmp_seq=3 ttl=255 time=3.20 ms
-64 bytes from 10.0.2.2: icmp_seq=4 ttl=255 time=2.55 ms
-
---- 10.0.2.2 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3010ms
-rtt min/avg/max/mdev = 2.555/3.058/3.634/0.406 ms
-
-Latence moyenne détectée : 3.058 ms
-Latence Wi-Fi (locale) dans la plage acceptable (&lt; 50 ms)</msg>
-<status status="PASS" start="2025-05-02T18:36:50.086679" elapsed="10.660827"/>
+<test id="s1-t7" name="Test forget Network" line="23">
+<kw name="Run Test forget network">
+<msg time="2025-05-06T08:55:09.790178" level="FAIL">No keyword with name 'Run Test forget network' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.790178" elapsed="0.000000">No keyword with name 'Run Test forget network' found.</status>
 </kw>
-<status status="PASS" start="2025-05-02T18:36:50.086679" elapsed="10.661852"/>
+<status status="FAIL" start="2025-05-06T08:55:09.789175" elapsed="0.002510">No keyword with name 'Run Test forget network' found.</status>
 </test>
-<test id="s1-t8" name="Test mobile network latency" line="28">
-<kw name="Run Test mobile network latency " owner="Tests_system">
-<msg time="2025-05-02T18:37:09.949414" level="INFO">Test de latence network mobile
-
-📨 Résultat du ping :
-PING 10.0.2.2 (10.0.2.2) 56(84) bytes of data.
-64 bytes from 10.0.2.2: icmp_seq=1 ttl=255 time=0.294 ms
-64 bytes from 10.0.2.2: icmp_seq=2 ttl=255 time=0.984 ms
-64 bytes from 10.0.2.2: icmp_seq=3 ttl=255 time=1.14 ms
-64 bytes from 10.0.2.2: icmp_seq=4 ttl=255 time=1.01 ms
-
---- 10.0.2.2 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3027ms
-rtt min/avg/max/mdev = 0.294/0.861/1.147/0.332 ms
-
-Latence moyenne détectée : 0.861 ms</msg>
-<msg time="2025-05-02T18:37:09.949414" level="FAIL">Latence mobile hors plage : 0.861 ms</msg>
-<status status="FAIL" start="2025-05-02T18:37:00.751501" elapsed="9.245535">Latence mobile hors plage : 0.861 ms</status>
+<test id="s1-t8" name="Test loopback latency" line="26">
+<kw name="Run Test loopback latency">
+<msg time="2025-05-06T08:55:09.794693" level="FAIL">No keyword with name 'Run Test loopback latency' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.793693" elapsed="0.001000">No keyword with name 'Run Test loopback latency' found.</status>
 </kw>
-<status status="FAIL" start="2025-05-02T18:37:00.749523" elapsed="9.248585">Latence mobile hors plage : 0.861 ms</status>
+<status status="FAIL" start="2025-05-06T08:55:09.791685" elapsed="0.003514">No keyword with name 'Run Test loopback latency' found.</status>
 </test>
-<status status="FAIL" start="2025-05-02T18:34:27.190733" elapsed="162.808404"/>
+<test id="s1-t9" name="Test wifi latency" line="29">
+<kw name="Run Test wifi latency">
+<msg time="2025-05-06T08:55:09.797740" level="FAIL">No keyword with name 'Run Test wifi latency' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.797740" elapsed="0.000000">No keyword with name 'Run Test wifi latency' found.</status>
+</kw>
+<status status="FAIL" start="2025-05-06T08:55:09.795722" elapsed="0.002018">No keyword with name 'Run Test wifi latency' found.</status>
+</test>
+<test id="s1-t10" name="Test mobile network latency" line="32">
+<kw name="Run Test mobile network latency">
+<msg time="2025-05-06T08:55:09.800260" level="FAIL">No keyword with name 'Run Test mobile network latency' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.800260" elapsed="0.001089">No keyword with name 'Run Test mobile network latency' found.</status>
+</kw>
+<status status="FAIL" start="2025-05-06T08:55:09.797740" elapsed="0.003609">No keyword with name 'Run Test mobile network latency' found.</status>
+</test>
+<test id="s1-t11" name="Test brightness slider functionality" line="35">
+<kw name="Run Test brightness slider functionality">
+<msg time="2025-05-06T08:55:09.803359" level="FAIL">No keyword with name 'Run Test brightness slider functionality' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.803359" elapsed="0.000000">No keyword with name 'Run Test brightness slider functionality' found.</status>
+</kw>
+<status status="FAIL" start="2025-05-06T08:55:09.801349" elapsed="0.002010">No keyword with name 'Run Test brightness slider functionality' found.</status>
+</test>
+<test id="s1-t12" name="Test adaptive brightness functionality" line="38">
+<kw name="Run Test adaptive brightness functionality">
+<msg time="2025-05-06T08:55:09.805497" level="FAIL">No keyword with name 'Run Test adaptive brightness functionality' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.805497" elapsed="0.000507">No keyword with name 'Run Test adaptive brightness functionality' found.</status>
+</kw>
+<status status="FAIL" start="2025-05-06T08:55:09.804491" elapsed="0.001513">No keyword with name 'Run Test adaptive brightness functionality' found.</status>
+</test>
+<test id="s1-t13" name="Test Date change" line="41">
+<kw name="Run Test Date change">
+<msg time="2025-05-06T08:55:09.809519" level="FAIL">No keyword with name 'Run Test Date change' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.809519" elapsed="0.000000">No keyword with name 'Run Test Date change' found.</status>
+</kw>
+<status status="FAIL" start="2025-05-06T08:55:09.807519" elapsed="0.003005">No keyword with name 'Run Test Date change' found.</status>
+</test>
+<test id="s1-t14" name="Test Time change" line="44">
+<kw name="Run Test Time change">
+<msg time="2025-05-06T08:55:09.812517" level="FAIL">No keyword with name 'Run Test Time change' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.812517" elapsed="0.000000">No keyword with name 'Run Test Time change' found.</status>
+</kw>
+<status status="FAIL" start="2025-05-06T08:55:09.810524" elapsed="0.002994">No keyword with name 'Run Test Time change' found.</status>
+</test>
+<test id="s1-t15" name="Test Micro Input" line="47">
+<kw name="Run Test micro Input">
+<msg time="2025-05-06T08:55:09.816023" level="FAIL">No keyword with name 'Run Test micro Input' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.816023" elapsed="0.000000">No keyword with name 'Run Test micro Input' found.</status>
+</kw>
+<status status="FAIL" start="2025-05-06T08:55:09.814519" elapsed="0.001504">No keyword with name 'Run Test micro Input' found.</status>
+</test>
+<test id="s1-t16" name="Test Micro Output" line="50">
+<kw name="Run Test micro Output">
+<msg time="2025-05-06T08:55:09.819041" level="FAIL">No keyword with name 'Run Test micro Output' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.819041" elapsed="0.000000">No keyword with name 'Run Test micro Output' found.</status>
+</kw>
+<status status="FAIL" start="2025-05-06T08:55:09.817533" elapsed="0.002519">No keyword with name 'Run Test micro Output' found.</status>
+</test>
+<test id="s1-t17" name="Test Install/Uinstall Apks" line="53">
+<kw name="Run Test install uninstall Apks">
+<msg time="2025-05-06T08:55:09.827592" level="FAIL">No keyword with name 'Run Test install uninstall Apks' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.826593" elapsed="0.000999">No keyword with name 'Run Test install uninstall Apks' found.</status>
+</kw>
+<status status="FAIL" start="2025-05-06T08:55:09.823579" elapsed="0.004013">No keyword with name 'Run Test install uninstall Apks' found.</status>
+</test>
+<test id="s1-t18" name="Test hvac temperature control" line="56">
+<kw name="Run Test hvac temperature control">
+<msg time="2025-05-06T08:55:09.830969" level="FAIL">No keyword with name 'Run Test hvac temperature control' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.830969" elapsed="0.000000">No keyword with name 'Run Test hvac temperature control' found.</status>
+</kw>
+<status status="FAIL" start="2025-05-06T08:55:09.828958" elapsed="0.003007">No keyword with name 'Run Test hvac temperature control' found.</status>
+</test>
+<test id="s1-t19" name="Test hvac climatisation system (AC)" line="59">
+<kw name="Run Test hvac climatisation system (AC)">
+<msg time="2025-05-06T08:55:09.834474" level="FAIL">No keyword with name 'Run Test hvac climatisation system (AC)' found.</msg>
+<status status="FAIL" start="2025-05-06T08:55:09.834474" elapsed="0.000000">No keyword with name 'Run Test hvac climatisation system (AC)' found.</status>
+</kw>
+<status status="FAIL" start="2025-05-06T08:55:09.831965" elapsed="0.002509">No keyword with name 'Run Test hvac climatisation system (AC)' found.</status>
+</test>
+<status status="FAIL" start="2025-05-06T08:54:48.615307" elapsed="21.221708"/>
 </suite>
 <statistics>
 <total>
-<stat pass="7" fail="1" skip="0">All Tests</stat>
+<stat pass="0" fail="19" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat name="Tests system" id="s1" pass="7" fail="1" skip="0">Tests system</stat>
+<stat name="Tests system" id="s1" pass="0" fail="19" skip="0">Tests system</stat>
 </suite>
 </statistics>
 <errors>
+<msg time="2025-05-06T08:55:03.331044" level="WARN">Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x0000023DE15601D0&gt;: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée')': /session</msg>
+<msg time="2025-05-06T08:55:05.371252" level="WARN">Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x0000023DE3717710&gt;: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée')': /session</msg>
+<msg time="2025-05-06T08:55:07.410677" level="WARN">Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x0000023DE3715DD0&gt;: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée')': /session</msg>
+<msg time="2025-05-06T08:55:09.693578" level="ERROR">Error in file 'C:\Users\hibac\Desktop\automative_tests\tests\Tests_system.robot' on line 2: Importing library 'C:\Users\hibac\Desktop\automative_tests\keywords\Tests_system.py' failed: MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=4723): Max retries exceeded with url: /session (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0x0000023DE36F7B50&gt;: Failed to establish a new connection: [WinError 10061] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée'))
+Traceback (most recent call last):
+  File "C:\Users\hibac\Desktop\automative_tests\keywords\Tests_system.py", line 29, in &lt;module&gt;
+    driver_factory.initialize_drivers()
+  File "C:\Users\hibac\Desktop\automative_tests\keywords\appium_driver_factory.py", line 94, in initialize_drivers
+    driver = self.setup_driver(emulator_uid, emulator_type, default_app_package, default_app_activity)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\keywords\appium_driver_factory.py", line 78, in setup_driver
+    driver = Remote("http://127.0.0.1:4723", options=options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\appium\webdriver\webdriver.py", line 236, in __init__
+    super().__init__(
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 250, in __init__
+    self.start_session(capabilities)
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\appium\webdriver\webdriver.py", line 327, in start_session
+    response = self.execute(RemoteCommand.NEW_SESSION, w3c_caps)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 427, in execute
+    response = self.command_executor.execute(driver_command, params)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 404, in execute
+    return self._request(command_info[0], url, body=data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\selenium\webdriver\remote\remote_connection.py", line 428, in _request
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\urllib3\_request_methods.py", line 143, in request
+    return self.request_encode_body(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\urllib3\_request_methods.py", line 278, in request_encode_body
+    return self.urlopen(method, url, **extra_kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\urllib3\poolmanager.py", line 443, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\urllib3\connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\urllib3\util\retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PYTHONPATH:
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddle\fluid\..\libs
+  C:\Users\hibac\Desktop\automative_tests\keywords
+  C:\Users\hibac\Desktop\automative_tests\myenv\Scripts\robot.exe
+  C:\Users\hibac\PycharmProjects\PythonProject
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311\python311.zip
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311\DLLs
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311\Lib
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311
+  C:\Users\hibac\Desktop\automative_tests\myenv
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess\..
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess\..
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\utils\e2e_utils
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\utils\e2e_utils\..
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure\layout
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure\table
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure\table</msg>
+<msg time="2025-05-06T08:55:09.755502" level="ERROR">Error in file 'C:\Users\hibac\Desktop\automative_tests\tests\Tests_system.robot' on line 3: Importing library 'C:\Users\hibac\Desktop\automative_tests\keywords\Test_pairing_bluetooth.py' failed: Erreur de détection devices
+Traceback (most recent call last):
+  File "C:\Users\hibac\Desktop\automative_tests\keywords\Test_pairing_bluetooth.py", line 46, in &lt;module&gt;
+    PHONE_UDID, AAOS_UDID = detect_devices()
+                            ^^^^^^^^^^^^^^^^
+  File "C:\Users\hibac\Desktop\automative_tests\keywords\Test_pairing_bluetooth.py", line 41, in detect_devices
+    raise Exception("Erreur de détection devices")
+PYTHONPATH:
+  C:\Users\hibac\Desktop\automative_tests\keywords
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddle\fluid\..\libs
+  C:\Users\hibac\Desktop\automative_tests\myenv\Scripts\robot.exe
+  C:\Users\hibac\PycharmProjects\PythonProject
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311\python311.zip
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311\DLLs
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311\Lib
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311
+  C:\Users\hibac\Desktop\automative_tests\myenv
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess\..
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess\..
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\utils\e2e_utils
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\utils\e2e_utils\..
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure\layout
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure\table
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure\table</msg>
 </errors>
 </robot>

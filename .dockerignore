@@ -1,8 +1,15 @@
+# === Environnement virtuel ===
+myenv/
+env/
+venv/
+
+# === Dossiers inutiles dans l'image ===
+.vscode/
+.idea/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 *.log
-myenv/
-.vscode/
-.env
+*.tmp
+rapport_audio.txt

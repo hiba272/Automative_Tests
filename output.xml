@@ -1,54 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.2.2 (Python 3.11.0 on win32)" generated="2025-05-03T21:54:15.292370" rpa="false" schemaversion="5">
+<robot generator="Robot 7.2.2 (Python 3.11.0 on win32)" generated="2025-05-05T21:25:55.363578" rpa="false" schemaversion="5">
 <suite id="s1" name="Tests system" source="c:\Users\hibac\Desktop\automative_tests\tests\Tests_system.robot">
-<test id="s1-t1" name="Test Micro Output" line="49">
-<kw name="Run Test micro Output" owner="Tests_system">
-<msg time="2025-05-03T21:55:25.409950" level="INFO">Capture AVANT Stop...
-
-Envoi STOP...
-
-Capture APRÈS Stop...
-
-Analyse...
-
-✨ RAPPORT AUDIO
-=====================
-
-🔊 AVANT STOP :
----------------------
-- Niveau RMS : 2166.11
-- Niveau sonore (dB) : 66.71 dB
-- Durée avec son (&gt; -40 dB) : 10.00 secondes
-- Nombre de pics forts (&gt; 20 dB) : 52
-
-✅ Analyse :
-Un signal audio important a été détecté avant l'envoi de la commande STOP. 
-Le niveau RMS élevé (2166.11) et le volume sonore moyen (66.71 dB) indiquent clairement une activité sonore significative. 
-La totalité des 10 secondes contient du son audible, avec 52 pics forts dépassant le seuil critique de 20 dB.
-👉 Ces indicateurs confirment la lecture correcte de la sonnerie dans l’émulateur avant le STOP.
-
-🔇 APRÈS STOP :
----------------------
-- Niveau RMS : 4.34
-- Niveau sonore (dB) : 12.76 dB
-- Durée avec son (&gt; -40 dB) : 10.00 secondes
-- Nombre de pics forts (&gt; 20 dB) : 0
-
-🟡 Analyse :
-Après l’envoi de la commande STOP, bien que le seuil de bruit soit dépassé sur toute la durée (10s),
-le niveau RMS très bas (4.34) et le volume sonore moyen faible (12.76 dB) indiquent un bruit de fond minimal.
-Le faible nombre de pics (0) suggère l'absence de véritable activité sonore.
-👉 Il n’y a pas de sonnerie jouée après le STOP — seulement un résidu ou bruit technique du micro.
-
-🎯 CONCLUSION GLOBALE :
-------------------------
-✅ Le son a bien été détecté dans l’émulateur **avant** la commande STOP.
-✅ Aucun son significatif n'a été détecté **après** — la commande STOP fonctionne correctement.</msg>
-<status status="PASS" start="2025-05-03T21:54:35.113537" elapsed="50.298944"/>
+<test id="s1-t1" name="Test pairing bluetooth" line="9">
+<kw name="Run Test pairing bluetooth" owner="Test_pairing_bluetooth">
+<msg time="2025-05-05T21:27:40.749008" level="INFO">TEST : Bluetooth Pairing Phone &lt;--&gt; AAOS
+Attente 2 secondes...
+Attente 2 secondes...
+Initialisation Phone et navigation Bluetooth...
+Attente 2 secondes...
+Action : Ouvrir Settings Phone (via NexusLauncher)
+Impossible de cliquer sur Ouvrir Settings Phone (via NexusLauncher)
+Icône Settings introuvable, tentative via adb...
+Lancement manuel de Settings via adb pour emulator-5556...
+Attente 2 secondes...
+Attente 2 secondes...
+Action : Ouvrir Connected Devices
+Cliqué sur Ouvrir Connected Devices
+Attente 1 secondes...
+Action : Ouvrir Pair New Devices
+Cliqué sur Ouvrir Pair New Devices
+Attente 1 secondes...
+Démarrage du Pairing AAOS...
+Action : Ouvrir Pair New Device
+Cliqué sur Ouvrir Pair New Device
+Attente 1 secondes...
+Action : Sélectionner sdk_gphone64_x86_64
+Impossible de cliquer sur Sélectionner sdk_gphone64_x86_64
+Attente 1 secondes...
+Action : Cliquer sur Pair AAOS
+Impossible de cliquer sur Cliquer sur Pair AAOS
+Attente 1 secondes...
+Confirmation Pairing Phone...
+Action : Activer accès aux contacts
+Impossible de cliquer sur Activer accès aux contacts
+Attente 1 secondes...
+Action : Confirmer Pair Phone
+Impossible de cliquer sur Confirmer Pair Phone
+Attente 3 secondes...
+Action : Autoriser accès Phone
+Impossible de cliquer sur Autoriser accès Phone
+Attente 1 secondes...
+Finalisation Pairing AAOS...
+Action : Cliquer sur Continue AAOS
+Impossible de cliquer sur Cliquer sur Continue AAOS
+Attente 1 secondes...
+Vérification OCR du statut de connexion...
+Capture pour OCR sauvegardée : c:\Users\hibac\Desktop\automative_tests\screenshots_system\aaos_final_check_20250505_212738.png
+Image croppée sauvegardée : c:\Users\hibac\Desktop\automative_tests\screenshots_system\aaos_cropped_check_20250505_212738.png
+Erreur pendant la vérification OCR : 'NoneType' object is not iterable
+Test Bluetooth Pairing + Vérification OCR réussi entre Phone et AAOS.</msg>
+<status status="PASS" start="2025-05-05T21:26:26.659798" elapsed="74.093458"/>
 </kw>
-<status status="PASS" start="2025-05-03T21:54:35.112534" elapsed="50.300946"/>
+<status status="PASS" start="2025-05-05T21:26:26.658704" elapsed="74.095873"/>
 </test>
-<status status="PASS" start="2025-05-03T21:54:15.298876" elapsed="70.115830"/>
+<status status="PASS" start="2025-05-05T21:25:55.370141" elapsed="105.387957"/>
 </suite>
 <statistics>
 <total>
@@ -61,5 +66,44 @@ Le faible nombre de pics (0) suggère l'absence de véritable activité sonore.
 </suite>
 </statistics>
 <errors>
+</errors>
+</robot>
+C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddle\fluid\..\libs
+  c:\Users\hibac\Desktop\automative_tests\keywords
+  c:\Users\hibac\.vscode\extensions\robocorp.robotframework-lsp-1.13.0\src\robotframework_debug_adapter
+  C:\Users\hibac\Desktop\automative_tests
+  c:\Users\hibac\.vscode\extensions\robocorp.robotframework-lsp-1.13.0\src
+  c:\Users\hibac\.vscode\extensions\robocorp.robotframework-lsp-1.13.0\src\robotframework_ls\vendored
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311\python311.zip
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311\DLLs
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311\Lib
+  C:\Users\hibac\AppData\Local\Programs\Python\Python311
+  C:\Users\hibac\Desktop\automative_tests\myenv
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess\..
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\postprocess\..
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\utils\e2e_utils
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppocr\utils\e2e_utils\..
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\tools\infer
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure\layout
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure\table
+  C:\Users\hibac\Desktop\automative_tests\myenv\Lib\site-packages\paddleocr\ppstructure\table</msg>
 </errors>
 </robot>

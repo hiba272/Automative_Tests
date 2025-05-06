@@ -19,7 +19,9 @@ import subprocess
 import re
 ocr = PaddleOCR(use_angle_cls=True, lang='en')
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SCREENSHOT_DIR = "output"
 SCREENSHOT_PATH = os.path.join(BASE_DIR, "screenshots_system")
+SCREENSHOT_DIR = os.path.normpath(os.path.join(BASE_DIR, "..", "screenshots_hvac"))
 AUDIO_FILE = os.path.join(BASE_DIR, "open_play_store.mp3")
 PACKAGE_NAME = "com.simplemobiletools.filemanager"
 MAIN_ACTIVITY = "com.simplemobiletools.filemanager.activities.MainActivity"
@@ -922,6 +924,235 @@ Le faible nombre de pics ({after_pics}) suggère l'absence de véritable activit
         f.write(rapport)
 
     retour_launcher()
+def ouvrir_barre_climatisation():
+
+    os.system("adb shell input tap 740 749")
+    time.sleep(2)
+
+# ======================= TEST TEMPERATURE GAUCHE (OCR) =======================
+
+def get_temp_from_screenshot(image_path, crop_coords):
+    image = cv2.imread(image_path)
+    if image is None:
+        print(f"Image introuvable : {image_path}")
+        return None
+
+    x, y, w, h = crop_coords
+    cropped = image[y:y+h, x:x+w]
+    cropped_path = image_path.replace(".png", "_cropped.png")
+    cv2.imwrite(cropped_path, cropped)
+
+    gray = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+    enhanced = clahe.apply(gray)
+    _, processed = cv2.threshold(enhanced, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    kernel = np.array([[0, -1, 0], [-1, 5,-1], [0, -1, 0]])
+    sharpened = cv2.filter2D(processed, -1, kernel)
+    debug_path = image_path.replace(".png", "_ocr_ready.png")
+    cv2.imwrite(debug_path, sharpened)
+
+    result = ocr.ocr(sharpened, cls=True)
+    if not result or not result[0]:
+        print("OCR n’a rien détecté.")
+        return None
+
+    candidates = []
+    for line in result[0]:
+        text = line[1][0]
+        print(f"[OCR détecté] : {text}")
+        try:
+            clean_text = text.strip().replace("°", "").replace(",", ".")
+            if clean_text.startswith("."):
+                clean_text = clean_text[1:]
+            number = int(float(clean_text))
+            if 10 <= number <= 80:
+                candidates.append(number)
+        except:
+            continue
+
+    if candidates:
+        selected = max(set(candidates), key=candidates.count)
+        print(f"Température détectée par OCR : {selected}°")
+        return selected
+
+    print("Aucun nombre plausible détecté.")
+    return None
+
+def capture_temp(file_name, crop_coords, driver):
+    if not os.path.exists(SCREENSHOT_DIR):
+        os.makedirs(SCREENSHOT_DIR)
+    path = os.path.join(SCREENSHOT_DIR, file_name)
+    result = driver.save_screenshot(path)
+    if not result:
+        print(f"Échec de capture : {path}")
+        return None
+    print(f"📸 Capture enregistrée : {path}")
+    return get_temp_from_screenshot(path, crop_coords)
+
+def executer_test_temperature_gauche():
+    print("\nTempérature GAUCHE (OCR + UI)")
+    ouvrir_barre_climatisation()
+    crop_coords = (32, 268, 96, 356)  
+
+    plus_btn_xpath = '//android.widget.ImageView[@resource-id="com.android.systemui:id/hvac_increase_button"][1]'
+    minus_btn_xpath = '//android.widget.ImageView[@resource-id="com.android.systemui:id/hvac_decrease_button"][1]'
+
+    initial = capture_temp("initial.png", crop_coords, driver)
+    if initial is None:
+        print("OCR ÉCHEC – Température initiale non détectée.\n")
+        return
+
+    try:
+        print("Augmentation température (x3)...")
+        plus = driver.find_element(AppiumBy.XPATH, plus_btn_xpath)
+        for _ in range(3):
+            plus.click()
+            time.sleep(1.5)
+    except Exception as e:
+        print(f"ERREUR lors du clic sur le bouton + : {e}")
+        return
+
+    after_plus = capture_temp("after_plus.png", crop_coords, driver)
+    if after_plus is None:
+        return
+
+    try:
+        print("Diminution température (x2)...")
+        minus = driver.find_element(AppiumBy.XPATH, minus_btn_xpath)
+        for _ in range(2):
+            minus.click()
+            time.sleep(1.5)
+    except Exception as e:
+        print(f"ERREUR lors du clic sur le bouton - : {e}")
+        return
+
+    after_minus = capture_temp("after_minus.png", crop_coords, driver)
+    if after_minus is None:
+        return
+
+    print("\n[Récapitulatif Température Gauche]")
+    print(f"    Température initiale      : {initial}°")
+    print(f"    Après augmentation (x3)   : {after_plus}° ")
+    print(f"    Après diminution (x2)     : {after_minus}° ")
+
+    if after_plus > initial and after_minus < after_plus:
+        print("\nTempérature Gauche ajustée correctement.\n")
+    else:
+        print("\nLa température n’a pas été ajustée comme prévu.\n")
+
+
+def get_temperature_droite():
+    try:
+        elements = driver.find_elements(AppiumBy.ID, "com.android.systemui:id/hvac_temperature_text")
+        if len(elements) > 1:
+            temp_text = elements[1].text.replace("°", "").strip()
+            temp = int(temp_text)
+            print(f"   Température actuelle (droite) : {temp}°")
+            return temp
+        # Fallback
+        fallback_temp = int(driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[contains(@text, "°")]').text.replace("°", "").strip())
+        print(f"    Température détectée via fallback : {fallback_temp}°")
+        return fallback_temp
+    except Exception as e:
+        print(f"Erreur lecture température droite : {e}")
+        return -1
+
+def augmenter_temperature_droite():
+    print("Augmentation température DROITE (x3)...")
+    for _ in range(3):
+        os.system("adb shell input tap 1329 314")
+        time.sleep(1.5)
+
+def diminuer_temperature_droite():
+    print("Diminution température DROITE (x2)...")
+    for _ in range(2):
+        os.system("adb shell input tap 1332 577")
+        time.sleep(1.5)
+
+def verifier_changement_temperature(ancienne, nouvelle, action):
+    if action == "augmentation" and nouvelle > ancienne:
+        print("Température augmentée avec succès.")
+        return True
+    elif action == "diminution" and nouvelle < ancienne:
+        print("Température diminuée avec succès.")
+        return True
+    print("Aucun changement détecté après", action)
+    return False
+
+def executer_test_temperature_droite():
+    print("\nTempérature DROITE (Appium UI)")
+
+    initial = get_temperature_droite()
+    if initial == -1:
+        print("Température initiale introuvable.\n")
+        return
+
+    augmenter_temperature_droite()
+    apres_plus = get_temperature_droite()
+    if apres_plus == -1 or not verifier_changement_temperature(initial, apres_plus, "augmentation"):
+        print("Échec augmentation.\n")
+        return
+
+    diminuer_temperature_droite()
+    apres_moins = get_temperature_droite()
+    if apres_moins == -1 or not verifier_changement_temperature(apres_plus, apres_moins, "diminution"):
+        print("Échec diminution.\n")
+        return
+
+ 
+    print("\n[Récapitulatif Température Droite]")
+    print(f"    Température initiale        : {initial}°")
+    print(f"    Après augmentation (x3)     : {apres_plus}° ")
+    print(f"    Après diminution (x2)       : {apres_moins}° ")
+
+    print("\nTempérature DROITE ajustée correctement.\n")
+
+
+def test_toggle_ac_state_on_aaos():
+  
+
+    try:
+        ac_button = driver.find_element(AppiumBy.XPATH, '//android.widget.ImageButton[@resource-id="com.android.systemui:id/ac_button"]')
+        
+        # État initial
+        ac_initial = ac_button.get_attribute("selected") == "true"
+        etat_txt = "ACTIVÉ" if ac_initial else "DÉSACTIVÉ"
+        print(f"État initial de l'AC : {' ACTIVÉ' if ac_initial else ' DÉSACTIVÉ'}")
+
+        # Bascule 1 : changer l'état
+        print(f"Tentative de {'désactivation' if ac_initial else 'activation'} de l'AC...")
+        ac_button.click()
+        time.sleep(2)
+
+        ac_apres_1 = ac_button.get_attribute("selected") == "true"
+        if ac_apres_1 != ac_initial:
+            print(f"Changement réussi : AC est maintenant {' ACTIVÉ' if ac_apres_1 else ' DÉSACTIVÉ'}")
+        else:
+            print("Aucune modification détectée à la première bascule.")
+            return
+
+        print(f"Retour à l'état initial : {'activation' if not ac_initial else 'désactivation'} de l'AC...")
+        ac_button.click()
+        time.sleep(2)
+
+        ac_apres_2 = ac_button.get_attribute("selected") == "true"
+        if ac_apres_2 == ac_initial:
+            print(f"Retour réussi : AC est de nouveau {' ACTIVÉ' if ac_apres_2 else ' DÉSACTIVÉ'}")
+            print("\nL'AC a été correctement activée puis désactivée.")
+        else:
+            print("Le retour à l'état initial a échoué.")
+
+    except Exception as e:
+        print(f"Erreur pendant le test de bascule AC : {e}")
+
+
+    os.system("adb shell input tap 740 749")
+    time.sleep(2)
+
+def Test_hvac_temperature_control():
+    executer_test_temperature_gauche()
+    executer_test_temperature_droite()
+
 @keyword("Run Test bluetooth toggle sync")
 def run_test_bluetooth_toggle_sync():
     test_bluetooth_toggle_sync()
@@ -987,34 +1218,11 @@ def run_test_install_uninstall_apks():
 def run_test_micro_output():
         Test_micro_Output()
 
-      
-if __name__ == "__main__":
-    try:
-        print("🚗 Initialisation du driver Automotive...")
-        print("\n🔌 Exécution du test Hotspot...")
-        test_hotspot_behavior()
-        print("\n📶 Exécution du test Mobile Network...")
-        test_mobile_network_behavior()
-        print("\n📡 Exécution du test Wi-Fi connectivity")
-        test_wifi_connectivity()
-        print("\n📡 Exécution du test Wi-Fi disconnectivity")
-        test_wifi_disconnectivity()  
-        print("\n📡 Exécution du test suppression réseau")
-        test_forget_network()
-        print("\n📡 Exécution du test wifi latency")
-        test_wifi_latency()
-        print("\n📡 Exécution du test wifi latency")
-        test_mobile_network_latency()
-        print("\n📡 Exécution du test loopback latency")
-        test_loopback_latency()
-        print("\n🎉 TOUS LES TESTS ONT RÉUSSI 🎉")
+@keyword("Run Test hvac temperature control")
+def run_test_hvac_temperature():
+    Test_hvac_temperature_control() 
 
-    except AssertionError as e:
-        print(f"\n❌ ECHEC D’UN TEST : {e}")
+@keyword("Run Test hvac climatisation system (AC)")
+def run_test_hvac_climatisation_system():
+   test_toggle_ac_state_on_aaos()
 
-    except Exception as e:
-        print(f"\n❌ ERREUR INATTENDUE : {e}")
-
-    finally:
-        print("\n📴 Fermeture du driver...")
-        driver_factory.quit_drivers()

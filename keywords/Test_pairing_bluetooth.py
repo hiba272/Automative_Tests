@@ -7,6 +7,7 @@ import cv2
 from paddleocr import PaddleOCR
 import numpy as np
 import subprocess
+from robot.api.deco import keyword
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 APPIUM_SERVER_URL = "http://127.0.0.1:4723"
@@ -15,7 +16,7 @@ os.makedirs(SCREENSHOT_PATH, exist_ok=True)
 
 
 def detect_devices():
-    print("\n📡 Détection des devices connectés...")
+    print("\nDétection des devices connectés...")
     result = subprocess.run(["adb", "devices", "-l"], capture_output=True, text=True)
     devices = []
 
@@ -36,10 +37,10 @@ def detect_devices():
             phone_device = udid
 
     if not aaos_device or not phone_device:
-        print("❌ Impossible de détecter les deux devices. Devices trouvés:", devices)
+        print("Impossible de détecter les deux devices. Devices trouvés:", devices)
         raise Exception("Erreur de détection devices")
 
-    print(f"✅ Détection terminée : Phone={phone_device}, AAOS={aaos_device}")
+    print(f"Détection terminée : Phone={phone_device}, AAOS={aaos_device}")
     return phone_device, aaos_device
 
 PHONE_UDID, AAOS_UDID = detect_devices()
@@ -60,68 +61,78 @@ def init_driver(udid, device_name):
 
 
 def click_xpath(driver, xpath, description="", timeout=5):
-    print(f"🔱 Action : {description}")
+    print(f"Action : {description}")
     end_time = time.time() + timeout
     while time.time() < end_time:
         try:
             element = driver.find_element(AppiumBy.XPATH, xpath)
             element.click()
-            print(f"✅ Cliqué sur {description}")
+            print(f"Cliqué sur {description}")
             return True
         except Exception:
             time.sleep(0.5)
-    print(f"❌ Impossible de cliquer sur {description}")
+    print(f"Impossible de cliquer sur {description}")
     return False
 
 def wait(seconds):
-    print(f"⏳ Attente {seconds} secondes...")
+    print(f"Attente {seconds} secondes...")
     time.sleep(seconds)
 
 def launch_settings_via_adb(udid):
-    print(f"🚀 Lancement manuel de Settings via adb pour {udid}...")
-    os.system(f"adb -s {udid} shell am start -n com.android.settings/.Settings")
+    print(f"Lancement manuel de Settings via adb pour {udid}...")
+    subprocess.run(
+    ["adb", "-s", udid, "shell", "am", "start", "-n", "com.android.settings/.Settings"],
+    stdout=subprocess.DEVNULL,    
+    stderr=None                   
+)
     wait(2)
 
-def verify_connection_with_ocr(driver, device_name):
-    print("🔍 Vérification OCR du statut de connexion...")
+def get_bluetooth_status(udid):
+    print(f"Vérification Bluetooth via adb pour {udid}...")
+    output = os.popen(f"adb -s {udid} shell settings get global bluetooth_on").read().strip()
+    if output == "1":
+        print("Bluetooth est ACTIVÉ")
+        return True
+    elif output == "0":
+        print("Bluetooth est DÉSACTIVÉ")
+        return False
+    else:
+        print(f"Impossible de lire l'état Bluetooth : {output}")
+        return None
 
+def capture_screenshot(driver, device_name, state_label):
+    timestamp = time.strftime("%Y%m%d_%H%M%S")
+    filename = f"{device_name}_bluetooth_{state_label}_{timestamp}.png"
+    filepath = os.path.join(SCREENSHOT_PATH, filename)
+    driver.save_screenshot(filepath)
+    print(f"Capture enregistrée : {filepath}")
+
+def toggle_bluetooth_ui(driver, expected_state, device_name):
+    print(f"Basculement Bluetooth via UI, attendu : {expected_state}")
     try:
-        # 1. Capture de l'écran complet
-        timestamp = time.strftime("%Y%m%d_%H%M%S")
-        screenshot_path = os.path.join(SCREENSHOT_PATH, f"{device_name}_final_check_{timestamp}.png")
-        driver.save_screenshot(screenshot_path)
-        print(f"📸 Capture pour OCR sauvegardée : {screenshot_path}")
+        switch_xpath = '//android.widget.Switch'
+        switch = driver.find_element(AppiumBy.XPATH, switch_xpath)
+        current_state = switch.get_attribute('checked') == 'true'
 
-        # 2. Chargement et crop de l'image
-        image = cv2.imread(screenshot_path)
-        cropped_image = image[469:502, 747:947]  # [y1:y2, x1:x2]
-        cropped_path = os.path.join(SCREENSHOT_PATH, f"{device_name}_cropped_check_{timestamp}.png")
-        cv2.imwrite(cropped_path, cropped_image)
-        print(f"✂️ Image croppée sauvegardée : {cropped_path}")
+        print(f"Etat actuel Bluetooth (UI) : {current_state}")
 
-        # 3. OCR sur l'image croppée
-        ocr = PaddleOCR(use_angle_cls=True, lang='en')
-        result = ocr.ocr(cropped_path, cls=True)
-
-        detected_text = ""
-        for line in result[0]:
-            detected_text += line[1][0] + " "
-
-        print(f"🧠 Texte détecté par OCR : {detected_text.strip()}")
-
-        # 4. Vérification du mot clé "Connected"
-        if "Connected" in detected_text:
-            print("✅ Vérification OCR : Appareil connecté avec succès !")
+        if current_state != expected_state:
+            print(f"Action nécessaire ➔ Clique sur Switch...")
+            switch.click()
+            wait(2)
+            capture_screenshot(driver, f"{device_name}_toggle_done")
         else:
-            print("❌ Vérification OCR : 'Connected' non détecté.")
+            print(f"Bluetooth est déjà dans l'état souhaité (pas besoin de cliquer)")
+            capture_screenshot(driver, f"{device_name}_no_toggle_needed")
 
     except Exception as e:
-        print(f"⚠️ Erreur pendant la vérification OCR : {e}")
+        print(f"Erreur Switch Bluetooth UI : {e}")
+
 
 def open_phone_settings_and_navigate():
     global driver_phone
 
-    print("📱 Initialisation Phone et navigation Bluetooth...")
+    print("Initialisation Phone et navigation Bluetooth...")
     try:
         driver_phone = init_driver(PHONE_UDID, "emulator-5556")
         driver_phone.press_keycode(3)
@@ -131,7 +142,7 @@ def open_phone_settings_and_navigate():
         success = click_xpath(driver_phone, xpath_settings_icon, "Ouvrir Settings Phone (via NexusLauncher)")
 
         if not success:
-            print("⚠️ Icône Settings introuvable, tentative via adb...")
+            print("Icône Settings introuvable, tentative via adb...")
             launch_settings_via_adb(PHONE_UDID)
             wait(2)
 
@@ -144,23 +155,19 @@ def open_phone_settings_and_navigate():
         wait(1)
 
     except Exception as e:
-        print(f"⚠️ Erreur ouverture + navigation Phone : {e}")
+        print(f"Erreur ouverture + navigation Phone : {e}")
 
 def open_aaos_settings():
     global driver_aaos
-
-    print("🚗 Initialisation AAOS...")
     driver_aaos = init_driver(AAOS_UDID, "emulator-5554")
     wait(2)
-
-    # Ouvrir Settings directement via adb
-    print("🚀 Lancement Settings AAOS via adb...")
-    os.system(f"adb -s {AAOS_UDID} shell am start -n com.android.car.settings/com.android.car.settings.Settings_Launcher_Homepage")
+    subprocess.run(["adb", "shell", "am", "start", "-n", "com.android.car.settings/.Settings_Launcher_Homepage"])
     wait(2)
-    print("✅ Settings AAOS ouvert via adb.")
+    
+
 
 def pair_new_device_on_aaos(driver):
-    print("🔗 Démarrage du Pairing AAOS...")
+    print("Démarrage du Pairing AAOS...")
     try:
         pair_new_device_xpath = '//androidx.recyclerview.widget.RecyclerView[@resource-id="com.android.car.settings:id/car_ui_internal_recycler_view"]/android.widget.RelativeLayout[2]'
         click_xpath(driver, pair_new_device_xpath, "Ouvrir Pair New Device")
@@ -178,7 +185,7 @@ def pair_new_device_on_aaos(driver):
         print(f"⚠️ Erreur Pairing AAOS : {e}")
 
 def confirm_pairing_on_phone(driver):
-    print("📱 Confirmation Pairing Phone...")
+    print("Confirmation Pairing Phone...")
     try:
         allow_contacts_switch_xpath = '//android.widget.Switch[@content-desc="Also allow access to contacts and call history"]'
         click_xpath(driver, allow_contacts_switch_xpath, "Activer accès aux contacts")
@@ -193,41 +200,85 @@ def confirm_pairing_on_phone(driver):
         wait(1)
 
     except Exception as e:
-        print(f"⚠️ Erreur confirmation Pairing Phone : {e}")
+        print(f"Erreur confirmation Pairing Phone : {e}")
 
 def finalize_pairing_on_aaos(driver):
-    print("🚗 Finalisation Pairing AAOS...")
+    print("Finalisation Pairing AAOS...")
     try:
         continue_button_xpath = '//android.widget.Button[@resource-id="android:id/button1"]'
         click_xpath(driver, continue_button_xpath, "Cliquer sur Continue AAOS")
         wait(1)
 
     except Exception as e:
-        print(f"⚠️ Erreur finalisation Pairing AAOS : {e}")
+        print(f"Erreur finalisation Pairing AAOS : {e}")
         
 def test_bluetooth_pairing():
-    """Test complet du Bluetooth Pairing entre Phone et AAOS."""
-    print("\n🚀 TEST : Bluetooth Pairing Phone <--> AAOS")
+   
+    print("\nTEST : Bluetooth Pairing Phone <--> AAOS")
 
     try:
-        
+        open_aaos_settings()
         open_phone_settings_and_navigate()
-
-     
         pair_new_device_on_aaos(driver_aaos)
-
-     
         confirm_pairing_on_phone(driver_phone)
-
         finalize_pairing_on_aaos(driver_aaos)
-
-        # 5. Vérification OCR que le Phone est bien connecté sur AAOS
         verify_connection_with_ocr(driver_aaos, "aaos")
-
-        print("✅ Test Bluetooth Pairing + Vérification OCR réussi entre Phone et AAOS.")
+        print("Test Bluetooth Pairing + Vérification OCR réussi entre Phone et AAOS.")
 
     except Exception as e:
-        print(f"❌ Erreur lors du test de Bluetooth Pairing : {e}")
+        print(f"Erreur lors du test de Bluetooth Pairing : {e}")
 
-open_aaos_settings()
-test_bluetooth_pairing()
+
+def verify_connection_with_ocr(driver, device_name):
+    print("Vérification OCR du statut de connexion...")
+
+    try:
+     
+        timestamp = time.strftime("%Y%m%d_%H%M%S")
+        screenshot_path = os.path.join(SCREENSHOT_PATH, f"{device_name}_final_check_{timestamp}.png")
+        driver.save_screenshot(screenshot_path)
+        print(f"Capture pour OCR sauvegardée : {screenshot_path}")
+
+
+        image = cv2.imread(screenshot_path)
+        cropped_image = image[469:502, 747:947] 
+        cropped_path = os.path.join(SCREENSHOT_PATH, f"{device_name}_cropped_check_{timestamp}.png")
+        cv2.imwrite(cropped_path, cropped_image)
+        print(f"Image croppée sauvegardée : {cropped_path}")
+
+        ocr = PaddleOCR(use_angle_cls=True, lang='en')
+        result = ocr.ocr(cropped_path, cls=True)
+
+        detected_text = ""
+        for line in result[0]:
+            detected_text += line[1][0] + " "
+
+        print(f"Texte détecté par OCR : {detected_text.strip()}")
+
+        if "Connected" in detected_text:
+            print("Vérification OCR : Appareil connecté avec succès !")
+        else:
+            print("Vérification OCR : 'Connected' non détecté.")
+
+    except Exception as e:
+        print(f"Erreur pendant la vérification OCR : {e}")
+
+def close_settings():
+
+    print("Attente 3 secondes avant fermeture de Settings...")
+    time.sleep(5)  
+
+    print("Fermeture de Settings AAOS...")
+    try:
+        os.system(f"adb -s {AAOS_UDID} shell am force-stop com.android.car.settings")
+        print("Settings fermé avec succès.")
+    except Exception as e:
+        print(f"Erreur lors de la fermeture de Settings : {e}")
+
+
+@keyword("Run Test pairing bluetooth")
+def run_test_pairing_bluetooth():
+       test_bluetooth_pairing()
+
+
+

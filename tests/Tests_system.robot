@@ -1,12 +1,13 @@
 *** Settings ***
 Library    ../keywords/Tests_system.py
-
+Library    ../keywords/Test_pairing_bluetooth.py
 
 *** Test Cases ***
 
 Test bluetooth toggle sync
     Run Test bluetooth toggle sync
-
+Test pairing bluetooth
+    Run Test pairing bluetooth
 Test Hotspot Activation / Désactivation
     Run Test Hotspot Behavior
 
@@ -37,7 +38,6 @@ Test brightness slider functionality
 Test adaptive brightness functionality
   Run Test adaptive brightness functionality   
 
-
 Test Date change
   Run Test Date change  
 
@@ -46,7 +46,15 @@ Test Time change
 
 Test Micro Input 
    Run Test micro Input  
+
 Test Micro Output
    Run Test micro Output
+
 Test Install/Uinstall Apks   
    Run Test install uninstall Apks
+
+Test hvac temperature control 
+    Run Test hvac temperature control   
+
+Test hvac climatisation system (AC)
+    Run Test hvac climatisation system (AC)

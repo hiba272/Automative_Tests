@@ -1,24 +1,36 @@
-# 1. Image officielle Python
 FROM python:3.11-slim
 
-# 2. Ne pas poser de questions pendant l'install
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 3. Installer Node.js et Appium
-RUN apt-get update && apt-get install -y curl gnupg2 && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g appium
+# 🔧 Installer les dépendances système nécessaires
+RUN apt-get update && apt-get install -y android-sdk-platform-tools adb
+RUN apt update && apt install -y \
+    gcc \
+    portaudio19-dev \
+    python3-dev \
+    libgl1 \
+    libglib2.0-0 \
+    libglib2.0-dev \
+    ffmpeg \
+    curl \
+    gnupg2 && \
+    rm -rf /var/lib/apt/lists/*
 
-# 4. Définir répertoire de travail
+# 🔧 Installer Node.js + Appium
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g appium && \
+    rm -rf /var/lib/apt/lists/*
+
+# 📁 Définir le dossier de travail
 WORKDIR /app
 
-# 5. Copier ton projet dans l'image
+# 📂 Copier les fichiers du projet
 COPY . .
 
-# 6. Installer dépendances Python
+# 🐍 Installer les dépendances Python avec le bon index pour paddlepaddle
 RUN pip install --upgrade pip setuptools wheel
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt -f https://www.paddlepaddle.org.cn/whl/linux/cpu/avx/stable.html
 
-# 7. Lancer Appium automatiquement et ouvrir bash
-CMD ["sh", "-c", "appium & exec bash"]
+# 🖥️ Entrée par défaut
+CMD ["bash"]
